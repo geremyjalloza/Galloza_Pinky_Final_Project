@@ -167,7 +167,7 @@ const stopBass = async function () {
 }
 document.getElementById("bass").addEventListener("mousedown", loadPlayBass);
 document.getElementById("bass").addEventListener("mouseup", stopBass);
-document.getElementById("bass").addEventListener("keydown",()=> {
+document.getElementById("bass").addEventListener("keypress",(event)=> {
     if (event.code === "KeyV"){
         loadPlayBass();
     }
@@ -209,7 +209,7 @@ const stopOpenHat = async function () {
 }
 document.getElementById("open hat").addEventListener("mousedown", loadPlayOpenHat);
 document.getElementById("open hat").addEventListener("mouseup", stopOpenHat);
-document.getElementById("open hat").addEventListener("keydown",(event)=> {
+document.getElementById("open hat").addEventListener("keypress",(event)=> {
     if (event.code === "KeyB"){
         loadPlayOpenHat();
     }

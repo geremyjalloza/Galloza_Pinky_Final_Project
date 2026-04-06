@@ -207,11 +207,6 @@ const loadPlayOpenHat = async function () {
 const stopOpenHat = async function () {
     openHat.stop();
 }
-document.getElementById("open hat").addEventListener("mousedown", loadPlayOpenHat);
-document.getElementById("open hat").addEventListener("mouseup", stopOpenHat);
-document.getElementById("open hat").addEventListener("keypress",(event)=> {
-    if (event.code === "KeyB"){
-        loadPlayOpenHat();
-    }
-})
+document.getElementById("open hat").onclick = () => loadPlayHat();
+document.getElementById("open hat").addEventListener("keypress",(b)=> loadPlayHat());
 

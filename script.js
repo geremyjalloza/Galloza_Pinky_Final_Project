@@ -4,11 +4,21 @@ const ctx = new AudioContext();
 const masterGain = new GainNode(ctx);
 masterGain.gain.value = 0;
 masterGain.connect(ctx.destination);
-const theButtons = document.querySelectorAll("button")
+const theButtons = document.querySelectorAll("piano-btn")
 const myNotes = Array(13)
 const pitches = [60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72]
 
+//MAKE AN ACCESSIBILITY TOGGLE EVENTUALLY!!!!! PEOPLE NEED TO BE ABLE TO USE THIS!!!!!
+theButtons.forEach((aButton, index) => {
+    aButton.addEventListener("pointerdown", () => {
 
+        myNotes[index] = new Default(ctx, masterGain, MusicTools.mtof(pitches[index]));
+        myNotes[index].play();
+    });
+    aButton.addEventListener("pointerup", () => {
+        myNotes[index].end();
+    })
+})
 
 document.querySelector("#volSlider").addEventListener("input", (event) => {
     let sliderValue = event.target.value;
@@ -81,16 +91,7 @@ document.querySelector("button").addEventListener("mouseup", () => {
 })
 */
 
-theButtons.forEach((aButton, index) => {
-    aButton.addEventListener("pointerdown", () => {
 
-        myNotes[index] = new Default(ctx, masterGain, MusicTools.mtof(pitches[index]));
-        myNotes[index].play();
-    });
-    aButton.addEventListener("pointerup", () => {
-        myNotes[index].end();
-    })
-})
 
 
 
@@ -169,11 +170,7 @@ const stopSnare = async function (snare) {
 }
 document.getElementById("snare").addEventListener("mousedown", loadPlaySnare);
 document.getElementById("snare").addEventListener("mouseup", stopSnare);
-document.getElementById("snare").addEventListener("keydown",(event)=> {
-    if (event.code === "KeyX"){
-        loadPlaySnare().then(stopSnare);
-        }
-    })
+document.getElementById("snare").addEventListener("keypress",("x") => loadPlaySnare());
 
 
 //hat

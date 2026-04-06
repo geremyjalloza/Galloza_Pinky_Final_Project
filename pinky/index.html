@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .medium-btn {
+            width: 50px;
+            height: 30px;
+            font-size: 10px;
+            color: #ff00aa;
+            background-color: #CC338b
+        }
+    </style>
+    <style>
+        .pink-txt{
+            color: #ff00aa;
+            font-style: oblique;
+        }
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/tone" type="module"></script>
+    <script src="pinky.js" type="module"></script>
+    <title>Piano Pinky</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="sequencer.css" />
+
+
+</head>
+<body>
+<h1 class = "pink-txt"> Pinky! </h1>
+<div class="piano" id="piano"></div>
+<div>
+    <button class ="medium-btn" id="kick" >Kick</button>
+    <button class ="medium-btn" id="snare">Snare</button>
+    <button class ="medium-btn" id="hat">Hat</button>
+    <button class ="medium-btn" id="bass">Bass</button>
+    <button class ="medium-btn" id="open hat">Open Hat</button>
+</div>
+<div>
+    <!-- Volume slider label -->
+    <label for="volSlider" class="pink-txt">Volume</label>
+
+    <!-- Range slider: -70 dB (quiet) to +6 dB (loud) -->
+    <input id="volSlider" type="range" value="-70" min="-70" max="6">
+    <!-- Display current volume value in decibels full scale (dBFS) -->
+    <label for="volSlider" id="volLabel"> -70.0 dBFS</label>
+
+
+</div>
+<div>
+    <label for="attackSlider" class="pink-txt">Attack</label>
+    <!-- Range slider: 0 sec (instant attack) to 5 sec (slow swell) -->
+    <input id="attackSlider" type="range" value="0.01" step = "0.01" min="0" max="5">
+    <!-- Display current attack value in seconds (sec.) -->
+    <label for="attackSlider" id="attackLabel"> 0.01 sec.</label>
+</div>
+<div>
+    <label for="decaySlider" class="pink-txt">Decay</label>
+    <!-- Range slider: 0 sec (instant attack) to 5 sec (slow swell) -->
+    <input id="decaySlider" type="range" value="0.5" step = "0.01" min="0" max="5">
+    <!-- Display current attack value in seconds (sec.) -->
+    <label for="decaySlider" id="decayLabel"> 0.5 sec.</label>
+</div>
+
+<!--sustain control -->
+<div>
+    <label for="susSlider" class="pink-txt">Sustain</label>
+    <!-- Range slider: 0 sec (instant attack) to 5 sec (slow swell) -->
+    <input id="susSlider" type="range" value="1" step="0.01" min="0" max="1">
+    <!-- Display current attack value in seconds (sec.) -->
+    <label for="susSlider" id="susLabel"> 1 sec.</label>
+</div>
+
+<!--release control -->
+<div>
+    <label for="relSlider" class="pink-txt">Release</label>
+    <!-- Range slider: 0 sec (instant attack) to 5 sec (slow swell) -->
+    <input id="relSlider" type="range" value="0.25" step = "0.01" min="0" max="10">
+    <!-- Display current attack value in seconds (sec.) -->
+    <label for="relSlider" id="relLabel"> 0.25 sec.</label>
+</div>
+<div class="controls">
+    <button id="startButton" class="control-button">Start</button>
+    <button id="stopButton" class="control-button">Stop</button>
+</div>
+
+<div id="sequencerGrid" class="sequencer-grid"></div>
+</body>
+
+
+
+</html>

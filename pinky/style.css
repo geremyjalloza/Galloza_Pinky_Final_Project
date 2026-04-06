@@ -1,0 +1,46 @@
+/*
+defining the piano, its keys and hover styles
+ */
+
+.piano {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    min-height: 220px;
+    margin: auto;
+}
+
+.white-key {
+    width: 60px;
+    height: 200px;
+    background-color: #ff82d3;
+    border: 1px solid #333;
+    z-index: 1;
+    margin: 0;
+}
+
+.black-key {
+    width: 40px;
+    height: 120px;
+    background-color: #82086a;
+    margin: 0 -20px;
+    /* negative margin to overlap with white keys */
+    z-index: 2;
+}
+
+.white-key:hover {
+    background-color: #ffc2e9;
+}
+
+.black-key:hover {
+    background-color: #b30b91;
+}
+
+.white-key:active {
+    background-color: #fcb1e1;
+}
+
+.black-key:active {
+    background-color: #a81b8c
+;
+}

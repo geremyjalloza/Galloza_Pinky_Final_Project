@@ -152,6 +152,9 @@ document.getElementById("kick").addEventListener("keydown", async (e)=>{
     console.log(e);
     if(e.code === "Numpad1"){
         await drumMachine.player("kick").start();
+        if(drumMachine.player("kick").isPlaying === true) {
+
+        }
     }
 
 })

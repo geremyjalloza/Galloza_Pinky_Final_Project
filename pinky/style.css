@@ -34,7 +34,8 @@ defining the piano, its keys and hover styles
 .title-txt {
     text-align: center;
     color: #ff00aa;
-    font-style: oblique
+    font-style: oblique;
+    font-size: 160px;
 }
 .white-key:hover {
     background-color: #ffc2e9;
@@ -70,6 +71,7 @@ button {
     border-radius: 5px;
     box-shadow: #82086a 2px 5px;
     text-align: center;
+    justify-content: center;
     width: 50%;
 }
 

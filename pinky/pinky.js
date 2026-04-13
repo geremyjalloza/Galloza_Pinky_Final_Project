@@ -1,7 +1,26 @@
 import * as MusicTools from "/Galloza_Pinky_Final_Project/pinky/MusicTools.js";
 let ctx = new AudioContext();
 //create my synth using Tone.js
-const synth = new Tone.PolySynth({
+/*
+const filter = new Tone.AutoFilter({
+    frequency: 9,
+    type: "sine",
+    depth: 0.6,
+    baseFrequency: 50,
+    octaves: 4,
+    filter: {
+        type: "lowpass",
+        rolloff: -12,
+        Q: 1,
+    },
+}).toDestination();
+
+filter.start();
+
+*/
+let synth;
+
+synth = new Tone.PolySynth({
     oscillator: {
         type: "sine",
     },
@@ -13,12 +32,11 @@ const synth = new Tone.PolySynth({
     },
 
 }).toDestination();
-synth.volume.value = -70;
 
 
 const notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 const octaves = [4,5,6];
-const releaseValue = synth.options.envelope.release;
+
 octaves.forEach((octave) => {
     notes.forEach((note) => {
     const key = document.createElement("div");
@@ -26,15 +44,49 @@ octaves.forEach((octave) => {
     key.className = isBlackKey ? "key black-key" : "key white-key";
 
     const playNote = () => {
-        synth.triggerAttackRelease(`${note}${octave}`, synth.options.envelope.release);
+        synth.triggerAttackRelease(`${note}${octave}`,synth.options.envelope.release);
     };
-    key.addEventListener("mousedown",playNote);
-
-    key.addEventListener("mouseover", playNote);
+    key.addEventListener("click", ()=>{
+        playNote();
+    });
 
 
     piano.appendChild(key);
     });
+});
+//gets stylesheet info
+const controls = document.createElement("div");
+controls.className = "controls";
+
+// Frequency control
+const freqControl = document.createElement("div");
+freqControl.innerHTML = `
+  <label>Filter Frequency: <span id="freqValue">9</span> Hz</label>
+  <input type="range" min="0.1" max="20" step="0.1" value="9" id="frequency">
+`;
+
+// Depth control
+const depthControl = document.createElement("div");
+depthControl.innerHTML = `
+  <label>Filter Depth: <span id="depthValue">0.6</span></label>
+  <input type="range" min="0" max="1" step="0.01" value="0.6" id="depth">
+`;
+
+controls.appendChild(freqControl);
+controls.appendChild(depthControl);
+document.body.insertBefore(controls, piano);
+
+// Add event listeners for the controls
+document.getElementById("frequency").addEventListener("input", (e) => {
+    const value = e.target.value;
+    filter.frequency.value = value;
+    document.getElementById("freqValue").textContent = value;
+});
+
+document.getElementById("depth").addEventListener("input", (e) => {
+    const value = e.target.value;
+    filter.depth.value = value;
+    document.getElementById("depthValue").textContent = value;
 });
 //volume slider
 document.querySelector("#volSlider").addEventListener("input", (event) => {
@@ -50,31 +102,32 @@ document.querySelector("#volSlider").addEventListener("input", (event) => {
 });
 //ADSR controls :)
 //attack slider
-document.querySelector("#attackSlider").addEventListener("input", (event) =>{
+document.querySelector("#attackSlider").addEventListener("input", (event) => {
+    console.log(ctx.attack);
     let sliderValue = event.target.value;
-    let now = ctx.currentTime;
     document.querySelector("#attackLabel").innerText = sliderValue + `sec.`
     sliderValue = Number(sliderValue); //sec
-    synth.envelope.attack = sliderValue;
+    synth.options.envelope.attack = sliderValue;
     console.log(sliderValue);
-
 });
+
+
 //decay slider
 document.querySelector("#decaySlider").addEventListener("input", (event) =>{
     console.log(ctx.decay);
     let sliderValue = event.target.value;
     document.querySelector("#decayLabel").innerText = sliderValue + `sec.`
     sliderValue = Number(sliderValue); //sec
-    synth.envelope.decay = sliderValue;
+    synth.options.envelope.decay = sliderValue;
     console.log(sliderValue);
 });
 
 // sustain slider
 document.querySelector("#susSlider").addEventListener("input", (event) =>{
-    let sliderValue = event.target.value /10;
+    let sliderValue = event.target.value;
     document.querySelector("#susLabel").innerText = sliderValue + `sec.`
     sliderValue = Number(sliderValue); //sec
-    synth.envelope.sustain = sliderValue;
+    synth.options.envelope.sustain = sliderValue;
     console.log(sliderValue);
 });
 //release slider
@@ -85,6 +138,46 @@ document.querySelector("#relSlider").addEventListener("input", (event) => {
     sliderValue = Number(sliderValue); //sec
     synth.options.envelope.release = sliderValue;
     console.log(sliderValue);
+});
+
+const drumMachine = new Tone.Players({
+    kick: "./Sounds/kick.wav",
+    hat: "./Sounds/hat.wav",
+    snare: "./Sounds/snare.wav",
+    bass: "./Sounds/bass.wav",
+    openHat: "./Sounds/open hat.wav",
+}).toDestination();
+
+document.getElementById("kick").addEventListener("keydown", async (e)=>{
+    console.log(e);
+    if(e.code === "Numpad1"){
+        await drumMachine.player("kick").start();
+    }
+
+})
+document.getElementById("kick").addEventListener("mousedown", async ()=>{
+    await drumMachine.player("kick").start();
+})
+
+document.getElementById("snare").addEventListener("keydown", async (e)=>{
+    console.log(e);
+    if(e.code === "Numpad2"){
+        await drumMachine.player("snare").start();
+    }
+
+})
+document.getElementById("snare").addEventListener("mousedown", async ()=>{
+    await drumMachine.player("snare").start();
+})
+
+document.getElementById("hat").addEventListener("keydown", async (e)=>{
+    console.log(e);
+    if(e.code === "Numpad3") {
+        await drumMachine.player("hat").start();
+    }
+});
+document.getElementById("hat").addEventListener("mousedown", async ()=>{
+    await drumMachine.player("hat").start();
 });
 
 document.addEventListener("DOMContentLoaded", () => {

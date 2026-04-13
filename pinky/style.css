@@ -44,3 +44,39 @@ defining the piano, its keys and hover styles
     background-color: #a81b8c
 ;
 }
+/*
+drum machine stuffs
+ */
+
+button {
+    background-color: #ffc2e9;
+}
+
+.container{
+    background-color: #e20cb3;
+    border-radius: 5px;
+    padding:1em;
+    margin-bottom:1em;
+}
+.controls {
+    margin: auto;
+    padding: 15px;
+    background: #e20cb3;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 50%;
+}
+
+.controls div {
+    margin: 10px 0;
+}
+
+.controls label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.controls input[type="range"] {
+    width: 200px;
+}

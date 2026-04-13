@@ -58,12 +58,12 @@
 }
 
 .current-step.active {
-    background: #00cc7d;
+    background: #b883ff;
 }
 .sequencer-cell {
     width: 25px; /* Reduced from 40px */
     height: 40px;
-    background: #555;
+    background: #fd8edb;
     border-radius: 4px;
     cursor: pointer;
 }
@@ -74,7 +74,7 @@
 }
 
 .sequencer-cell[data-note*="#"].active {
-    background: #008855;
+    background: #c34ca1;
 }
 
 .sequencer-cell:not([data-note*="#"]) {
@@ -82,7 +82,7 @@
 }
 
 .sequencer-cell:not([data-note*="#"]).active {
-    background: #00ff9d;
+    background: #b883ff;
 }
 
 .current-step[data-note*="#"] {
@@ -90,5 +90,5 @@
 }
 
 .current-step:not([data-note*="#"]) {
-    background: #666;
+    background: #fd8edb;
 }

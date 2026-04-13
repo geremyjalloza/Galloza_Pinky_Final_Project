@@ -27,7 +27,15 @@ defining the piano, its keys and hover styles
     /* negative margin to overlap with white keys */
     z-index: 2;
 }
-
+.pink-txt{
+    color: #ff00aa;
+    font-style: oblique;
+}
+.title-txt {
+    text-align: center;
+    color: #ff00aa;
+    font-style: oblique
+}
 .white-key:hover {
     background-color: #ffc2e9;
 }
@@ -60,7 +68,7 @@ button {
     padding: 15px;
     background: #e20cb3;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: #82086a 2px 5px;
     text-align: center;
     width: 50%;
 }

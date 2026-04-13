@@ -1,7 +1,7 @@
 import * as MusicTools from "/Galloza_Pinky_Final_Project/pinky/MusicTools.js";
 let ctx = new AudioContext();
 //create my synth using Tone.js
-/*
+
 const filter = new Tone.AutoFilter({
     frequency: 9,
     type: "sine",
@@ -17,7 +17,7 @@ const filter = new Tone.AutoFilter({
 
 filter.start();
 
-*/
+
 let synth;
 
 synth = new Tone.PolySynth({

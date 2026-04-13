@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Create a 16-step sequencer with 8 different notes
     const sequencerSteps = 16;
-    const seqNotes = ["C4", "D4", "E4", "F4", "G4", "A4", "B4", "C5"];
+    const seqNotes = ["C4", "C&sharp4", "D4", "D&sharp4", "E4", "F4", "F&sharp4", "G4", "A4", "B4", "C5"];
 
     // Get the grid container
     const sequencerGrid = document.getElementById("sequencerGrid");

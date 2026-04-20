@@ -6,7 +6,7 @@
     gap: 2px;
     background: #ff00cb;
     padding: 10px;
-    width: 80%;
+    width: 50%;
     justify-content: center;
     align-items: center;
     margin: auto;
@@ -62,7 +62,7 @@
 }
 .sequencer-cell {
     width: 25px; /* Reduced from 40px */
-    height: 40px;
+    height: 25px;
     background: #fd8edb;
     border-radius: 4px;
     cursor: pointer;

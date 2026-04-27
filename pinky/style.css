@@ -1,13 +1,22 @@
 /*
 defining the piano, its keys and hover styles
  */
+.pink{
+    background: linear-gradient(to bottom,  #ff82d3, #fa6ac6, #ef6bb1, #e300d1, #82086a);
+    }
 
+.slider {
+    display: -webkit-inline-flex;
+    position: inherit;
+    justify-content: flex-end;
+}
 .piano {
     display: flex;
     justify-content: center;
     padding: 20px;
     min-height: 220px;
     margin: auto;
+    scale: 1.1;
 }
 
 .white-key {
@@ -30,19 +39,31 @@ defining the piano, its keys and hover styles
 .pink-txt{
     color: #ff00aa;
     font-style: oblique;
+    font-size: 20px;
+    text-shadow: #000 0.9px 0.9px 1.4px;
+}
+.sm-pink-txt{
+    color: #ff00aa;
+    font-style: oblique;
+    font-size: 17.2px;
+    text-shadow: #000 0.7px 0.9px 1.1px;
 }
 .title-txt {
     text-align: center;
     color: #ff00aa;
     font-style: oblique;
-    font-size: 160px;
+    text-shadow: #000 0.5px 0.5px 1px;
+    font-size: 60px;
+    padding: -90px;
 }
 .white-key:hover {
     background-color: #ffc2e9;
+    transition: background-color 0.2s;
 }
 
 .black-key:hover {
     background-color: #b30b91;
+    transition: background-color 0.2s;
 }
 
 .white-key:active {
@@ -55,23 +76,29 @@ defining the piano, its keys and hover styles
 }
 
 button {
-    background-color: #ffc2e9;
+    background-color: #cf00a6;
+    outline: 1px solid black;
 }
 
 .container{
-    background-color: #e20cb3;
+    background-color: #f662d5;
     border-radius: 5px;
     padding:1em;
+    box-shadow: #82086a 2px 5px;
     margin-bottom:1em;
+    width:40%;
 }
 .controls {
-    margin: auto;
-    padding: 15px;
-    background: #e20cb3;
+    display: flex;
+    width: auto;
+    padding: 5px;
+    background: #f662d5;
     border-radius: 5px;
     box-shadow: #82086a 2px 5px;
-    text-align: center;
-    width: 50%;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    white-space: nowrap;
 }
 
 .controls div {

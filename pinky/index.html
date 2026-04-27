@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <style>
-        .medium-btn {
-            width: 100px;
-            height: 60px;
-            font-size: 15px;
-            color: #ff00aa;
-            background-color: #CC338b
-        }
-    </style>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/tone" type="module"></script>
@@ -20,27 +11,21 @@
 
 
 </head>
-<body>
+<body class="pink">
 
 <h1 class = "title-txt"> Pinky!</h1>
-<div>
-    <section class="container">
-        <h1>Filter</h1>
-        <button id ="filter">Apply Filter</button>
-    </section>
-</div>
-<div>
+<div align="center">
     <!-- Volume slider label -->
     <label for="gainSlider" class="pink-txt">Master Gain</label>
 
     <!-- Range slider: -70 dB (quiet) to +6 dB (loud) -->
     <input id="gainSlider" type="range" value="-70" min="-70" max="6">
     <!-- Display current volume value in decibels full scale (dBFS) -->
-    <label for="gainSlider" id="gainLabel"> -70.0 dBFS</label>
-
-
+    <label class="sm-pink-txt" for="gainSlider" id="gainLabel"> -70.0 dBFS</label>
 </div>
+
 <div class="piano" id="piano"></div>
+
 <div>
     <!-- Volume slider label -->
     <label for="volSlider" class="pink-txt">Volume</label>
@@ -48,50 +33,43 @@
     <!-- Range slider: -70 dB (quiet) to +6 dB (loud) -->
     <input id="volSlider" type="range" value="-70" min="-70" max="6">
     <!-- Display current volume value in decibels full scale (dBFS) -->
-    <label for="volSlider" id="volLabel"> -70.0 dBFS</label>
-
-
-</div>
-<div>
+    <label class="sm-pink-txt" for="volSlider" id="volLabel"> -70.0 dBFS</label>
     <label for="attackSlider" class="pink-txt">Attack</label>
     <!-- Range slider: 0 sec (instant attack) to 5 sec (slow swell) -->
-    <input id="attackSlider" type="range" value="0.01" step = "0.01" min="0" max="2">
+    <input id="attackSlider" class= ".slider" type="range" value="0.01" step = "0.01" min="0" max="2">
     <!-- Display current attack value in seconds (sec.) -->
-    <label for="attackSlider" id="attackLabel"> 0.01 sec.</label>
-</div>
-<div>
+    <label class="sm-pink-txt" for="attackSlider" id="attackLabel"> 0.01 sec.</label>
     <label for="decaySlider" class="pink-txt">Decay</label>
     <!-- Range slider: 0 sec (instant attack) to 5 sec (slow swell) -->
     <input id="decaySlider" type="range" value="0.5" step = "0.01" min="0.01" max="5">
     <!-- Display current attack value in seconds (sec.) -->
-    <label for="decaySlider" id="decayLabel"> 0.5 sec.</label>
-</div>
-
-<!--sustain control -->
-<div>
+    <label class="sm-pink-txt" for="decaySlider" id="decayLabel"> 0.5 sec.</label>
     <label for="susSlider" class="pink-txt">Sustain</label>
     <!-- Range slider: 0 sec (instant attack) to 5 sec (slow swell) -->
     <input id="susSlider" type="range" value="1" step="0.01" min="0" max="1">
     <!-- Display current attack value in seconds (sec.) -->
-    <label for="susSlider" id="susLabel"> 1 sec.</label>
-</div>
-
-<!--release control -->
-<div>
+    <label class="sm-pink-txt" for="susSlider" id="susLabel"> 1 sec.</label>
     <label for="relSlider" class="pink-txt">Release</label>
     <!-- Range slider: 0 sec (instant attack) to 5 sec (slow swell) -->
     <input id="relSlider" type="range" value="0.25" step = "0.01" min="0.01" max="10">
     <!-- Display current attack value in seconds (sec.) -->
-    <label for="relSlider" id="relLabel"> 0.25 sec.</label>
+    <label class="sm-pink-txt" for="relSlider" id="relLabel"> 0.25 sec.</label>
 </div>
 
-
-<div class="controls">
+<div content="center" class="controls">
+    <label class="pink-txt">Sequencer</label>
     <button id="startButton" class="control-button">Start</button>
     <button id="stopButton" class="control-button">Stop</button>
+    <!-- bpm slider -->
+    <label for="tempoSlider" class="pink-txt">Tempo (bpm)</label>
+    <!-- set up range -->
+    <input id="tempoSlider" type="range" value="100" step = "1" min="10" max="200">
+    <!-- Display current tempo in beats per minute (bpm)-->
+    <label class="sm-pink-txt" for="tempoSlider" id="tempoLabel"> 100 bpm</label>
 </div>
 <div id="sequencerGrid" class="sequencer-grid"></div>
-<div class="controls">
+<div content="center" class="controls">
+    <label class="pink-txt">Drum Machine</label>
     <button id="drumStartButton" class="control-button">Start</button>
     <button id="drumStopButton" class="control-button">Stop</button>
 </div>

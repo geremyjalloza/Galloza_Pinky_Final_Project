@@ -1,54 +1,52 @@
-import * as MusicTools from "/pinky/MusicTools.js";
+//importing necessary modules
+import * as MusicTools from "/pinky/MusicTools.js"; //contains functions like
+//initiating context
 let ctx = new Tone.Context();
-const masterGain = new Tone.Gain();
+//setting up masterGain
+const masterGain = new Tone.Gain().toDestination();
 masterGain.gain.value = -70;
+masterGain.context = ctx;
+//now variable is useful
 let now = ctx.currentTime;
-//create my synth using Tone.js
-//const masterGain = new GainNode(ctx);
-//masterGain.gain.value = 1;
+//grabbing CSS info
+const controls = document.createElement("div");
+Tone.Transport.bpm.value = 100;
+//stylesheet info necessary to create button controls for sequencers
+controls.className = "controls";
 
 
 const filter = new Tone.Filter({
     type: "lowpass",
-    cutoff: 5000,
-    rolloff: -24,
-    context: ctx,
-}).toDestination();
-
-document.getElementById("filter").addEventListener("click", () =>{
-    if (filter.isConnected === true){
-        filter.disconnect(ctx);
-    }
-    else {
-        filter.connect(ctx);
-    }
-})
+    cutoff: 9000,
+    rolloff: -12,
+}).connect(masterGain);
 
 
-
-
-let synth;
-
-synth = new Tone.PolySynth({
+//create synth
+const synth = new Tone.PolySynth({
+    voice: Tone.FMSynth,
     oscillator: {
         type: "sawtooth",
         modulationType: "sawtooth",
         harmonicity: 1.5,
+        polyphony: 8,
     },
-    context: ctx,
     envelope: {
+        mode: "amplitude",
         attack: 0.01,
         decay: 0.5,
         sustain: 1,
         release: 0.25,
     },
-    volume: -70,
+    volume: -70
+
 }).connect(filter);
 
 
 
+
 const notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
-const octaves = [4,5,6];
+const octaves = [4,5];
 
 octaves.forEach((octave) => {
     notes.forEach((note) => {
@@ -57,7 +55,7 @@ octaves.forEach((octave) => {
     key.className = isBlackKey ? "key black-key" : "key white-key";
 
     const playNote = () => {
-        synth.triggerAttackRelease(`${note}${octave}`,synth.options.envelope.release);
+        synth.triggerAttackRelease(`${note}${octave}`, synth.options.envelope.attack + synth.options.envelope.release);
     };
     key.addEventListener("mousedown", async()=>{
         await playNote();
@@ -67,30 +65,115 @@ octaves.forEach((octave) => {
     piano.appendChild(key);
     });
 });
-//gets stylesheet info
-const controls = document.createElement("div");
-controls.className = "controls";
 
-// Frequency control
-const freqControl = document.createElement("div");
-freqControl.innerHTML = `
-  <label>Filter Frequency: <span id="freqValue">9</span> Hz</label>
-  <input type="range" min="0.1" max="20" step="0.1" value="9" id="frequency">
-`;
-
-
-
-controls.appendChild(freqControl);
-
-document.body.insertBefore(controls, piano);
-
-// Add event listeners for the controls
-document.getElementById("frequency").addEventListener("input", (e) => {
-    const value = e.target.value;
-    filter.cutoff = value;
-
-    document.getElementById("freqValue").textContent = value;
-});
+    document.addEventListener("keypress",  async(e) => {
+        switch (e.code) {
+            case "KeyZ": {
+                await synth.triggerAttackRelease("C4", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "KeyS": {
+                await synth.triggerAttackRelease("C#4", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "KeyX": {
+                await synth.triggerAttackRelease("D4", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "KeyD": {
+                await synth.triggerAttackRelease("D#4", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "KeyC": {
+                await synth.triggerAttackRelease("E4", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "KeyV": {
+                await synth.triggerAttackRelease("F4", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "KeyG": {
+                await synth.triggerAttackRelease("F#4", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "KeyB": {
+                await synth.triggerAttackRelease("G4", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "KeyH": {
+                await synth.triggerAttackRelease("G#4", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "KeyN": {
+                await synth.triggerAttackRelease("A4", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "KeyJ": {
+                await synth.triggerAttackRelease("A#4", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "KeyM": {
+                await synth.triggerAttackRelease("B4", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "KeyZ": {
+                await synth.triggerAttackRelease("C4", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "Comma": {
+                await synth.triggerAttackRelease("C5", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "KeyAQ": {
+                await synth.triggerAttackRelease("C5", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "Digit2": {
+                await synth.triggerAttackRelease("C#5", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "KeyW": {
+                await synth.triggerAttackRelease("D5", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "Digit3": {
+                await synth.triggerAttackRelease("D#5", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "KeyE": {
+                await synth.triggerAttackRelease("E5", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "KeyR": {
+                await synth.triggerAttackRelease("F5", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "Digit5": {
+                await synth.triggerAttackRelease("F#5", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+                case "KeyT": {
+                await synth.triggerAttackRelease("G5", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "Digit6": {
+                await synth.triggerAttackRelease("G#5", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "KeyY": {
+                await synth.triggerAttackRelease("A5", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "Digit7": {
+                await synth.triggerAttackRelease("A#5", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+            case "KeyU": {
+                await synth.triggerAttackRelease("B5", synth.options.envelope.attack + synth.options.envelope.release);
+            }
+                break;
+        }
+    });
 
 //master gain slider
 document.querySelector("#gainSlider").addEventListener("input", (event) => {
@@ -118,25 +201,34 @@ document.querySelector("#volSlider").addEventListener("input", (event) => {
 //ADSR controls :)
 //attack slider
 document.querySelector("#attackSlider").addEventListener("input", (event) => {
-    console.log(ctx.attack);
     let sliderValue = event.target.value;
     document.querySelector("#attackLabel").innerText = sliderValue + `sec.`
     sliderValue = Number(sliderValue); //sec
-    synth.options.envelope.attack = sliderValue;
+    synth.set({
+        envelope: {
+            attack: sliderValue,
+        }
+    })
+    console.log(synth.options.envelope.attack);
 });
 
 //decay slider
     document.querySelector("#decaySlider").addEventListener("input", (event) => {
-        console.log(ctx.decay);
+        console.log(synth.options.envelope.decay);
         let sliderValue = event.target.value;
         document.querySelector("#decayLabel").innerText = sliderValue + `sec.`
         sliderValue = Number(sliderValue); //sec
-        synth.options.envelope.decay = sliderValue;
-        console.log(sliderValue);
+        synth.set({
+            envelope: {
+                decay: sliderValue,
+            }
+        })
+        console.log(synth.options.envelope.decay);
     });
 
 // sustain slider
     document.querySelector("#susSlider").addEventListener("input", (event) => {
+        console.log(synth.options.envelope.sustain);
         let sliderValue = event.target.value;
         document.querySelector("#susLabel").innerText = sliderValue + `sec.`
         sliderValue = Number(sliderValue); //sec
@@ -145,7 +237,7 @@ document.querySelector("#attackSlider").addEventListener("input", (event) => {
     });
 //release slider
     document.querySelector("#relSlider").addEventListener("input", (event) => {
-        console.log(ctx.release);
+        console.log(synth.options.envelope.release);
         let sliderValue = event.target.value;
         document.querySelector("#relLabel").innerText = sliderValue + `sec.`
         sliderValue = Number(sliderValue); //sec
@@ -164,7 +256,6 @@ document.querySelector("#attackSlider").addEventListener("input", (event) => {
 
 document.addEventListener("input", () => {
     document.addEventListener("keydown",  async(e) => {
-        let now = ctx.currentTime
         switch (e.code) {
             case "Numpad1": {
                 await drumMachine.player("kick").start(now);
@@ -213,12 +304,33 @@ document.addEventListener("input", () => {
         await drumMachine.player("hat").start();
     });
 */
+
+//bpm slider
+document.querySelector("#tempoSlider").addEventListener("input", (event) => {
+    let sliderValue = event.target.value;
+    document.querySelector("#tempoLabel").innerText = sliderValue + `bpm`
+    sliderValue = Number(sliderValue); //dB
+    Tone.Transport.bpm.rampTo (sliderValue);
+    console.log(Tone.Transport.bpm.value);
+});
     document.addEventListener("DOMContentLoaded", () => {
-        const seq = new Tone.PolySynth().toDestination();
+        const seq = new Tone.PolySynth({
+            voice: Tone.DuoSynth,
+            oscillator: {
+                type: "triangle",
+                modulationType: "square",
+            },
+            filter: {
+                type: "lowpass",
+                cutoff: 1000,
+                rolloff: -24
+            },
+            volume: -0.5
+        }).connect(masterGain);
 
         // Create a 16-step sequencer with 8 different notes
         const sequencerSteps = 16;
-        const seqNotes = ["C4", "C#4", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4", "C5"];
+        const seqNotes = ["C3", "B2", "A#2", "A2", "G#2", "G2", "F#2", "F2", "E2", "D#2", "D2", "C#2", "C2" ];
 
         // Get the grid container
         const sequencerGrid = document.getElementById("sequencerGrid");
@@ -246,13 +358,13 @@ document.addEventListener("input", () => {
 
         // Set up control buttons
         document
-            .querySelector(".controls #startButton")
+            .querySelector("#startButton")
             .addEventListener("click", () => {
                 Tone.start();
                 Tone.Transport.start();
             });
 
-        document.getElementById("stopButton").addEventListener("click", () => {
+        document.querySelector("#stopButton").addEventListener("click", () => {
             Tone.Transport.stop();
         });
 
@@ -285,17 +397,18 @@ document.addEventListener("input", () => {
         }, "16n").start(0);
     });
 
-    // drum sequencer
+    //creating drum sequencer
 document.addEventListener("DOMContentLoaded", () => {
     const drumSeq = new Tone.Players({
-        seqKick: "./Sounds/kick.wav",
         seqHat: "./Sounds/hat.wav",
         seqSnare: "./Sounds/snare.wav",
         seqBass: "./Sounds/bass.wav",
         seqOpenHat: "./Sounds/open hat.wav",
+        seqKick: "./Sounds/kick.wav",
+        volume: 0
     }).connect(masterGain);
 
-    // Create a 16-step sequencer with 8 different notes
+    // Create a 16-step sequencer with drum sounds
     const sequencerSteps = 16;
     const player =  ["seqKick", "seqHat", "seqSnare", "seqBass", "seqOpenHat"]
 
@@ -315,7 +428,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             cell.addEventListener("click", () => {
                 cell.classList.toggle("active");
-                drumSeq.player(player).start();
+                drumSeq.player(player).start(step);
                 console.log(cell.dataset.player);
             });
 
@@ -324,10 +437,9 @@ document.addEventListener("DOMContentLoaded", () => {
         sequencerGrid.appendChild(rowElement);
     });
 
-    // Set up control buttons
+    // Set up control buttons for sequencers
     document
-        .querySelector(".controls #drumStartButton")
-        .addEventListener("click", () => {
+        .getElementById("drumStartButton").addEventListener("click", () => {
             Tone.start();
             Tone.Transport.start();
         });
@@ -337,7 +449,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Create the playback loop
-    const drumSequencerLoop = new Tone.Loop(() => {
+    const drumSequencerLoop = new Tone.Loop((time) => {
         const position = Tone.Transport.position.split(":");
         console.log(position);
         const quarterNote = parseInt(position[1]);
@@ -359,29 +471,31 @@ document.addEventListener("DOMContentLoaded", () => {
         // Play active notes
         document
             .querySelectorAll(`.sequencer-cell[data-step="${currentStep}"].active`)
-            .forEach( async(cell) => {
+            .forEach( (cell) => {
                 console.log(cell.dataset.player);
                 switch (cell.dataset.player) {
                     case "seqKick": {
-                        drumSeq.player("seqKick").start(now);
+                        console.log(time);
+                        drumSeq.player("seqKick").start(time);
                     }
                     break
                     case "seqSnare": {
-                        drumSeq.player("seqSnare").start(now);
+                        drumSeq.player("seqSnare").start(time);
                     }
                     break
                     case "seqHat": {
-                        drumSeq.player("seqHat").start(now);
+                        drumSeq.player("seqHat").start(time);
                     }
                     break
                     case "seqBass": {
-                        drumSeq.player("seqBass").start(now);
+                        drumSeq.player("seqBass").start(time);
                     }
                     break
                     case "seqOpenHat": {
-                        drumSeq.player("seqOpenHat").start(now);
+                        drumSeq.player("seqOpenHat").start(time);
                     }
                 }
             });
-    }, ).start(0);
+    }, "16n").start(0);
 });
+
